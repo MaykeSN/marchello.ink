@@ -47,7 +47,7 @@ export function Marquee() {
             {words.map((w, i) => (
               <span key={i}>
                 {w}
-                <i>✦</i>
+                <i>★</i>
               </span>
             ))}
           </div>

@@ -1,12 +1,16 @@
 :root {
-  --paper: #ebe2cf;
-  --paper-2: #e2d6bd;
-  --ink: #0f0d0c;
-  --ink-2: #1a1715;
-  --red: #b8231b;
+  --paper: #e7e1d5;
+  --paper-2: #dcd4c4;
+  --ink: #0e0c0c;
+  --ink-2: #1a1616;
+  --red: #7d1a22;
+  --oxblood: #5a1218;
+  --brass: #a88b5a;
+  --ash: #8b8580;
   --stencil: #4b3fc4;
   --skin: #d39c7c;
   --gutter: clamp(18px, 4vw, 56px);
+  --letter: 'Rye', 'Pirata One', serif;
   --display: 'Pirata One', 'UnifrakturCook', serif;
   --condensed: 'Anton', Impact, sans-serif;
   --sans: 'DM Sans', system-ui, sans-serif;
@@ -71,12 +75,90 @@ em {
 }
 
 .eyebrow {
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 0.22em;
+  font: 13px/1.3 var(--letter);
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  opacity: 0.6;
+  color: var(--red);
   margin-bottom: 2rem;
+}
+
+.flash .eyebrow,
+.about .eyebrow {
+  color: var(--brass);
+}
+
+/* ---------- Ornamentos old school ---------- */
+.ribbon {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  padding: 0.55em 2.4em;
+  background: var(--red);
+  color: var(--paper);
+  font: clamp(12px, 1.2vw, 16px) / 1 var(--letter);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  clip-path: polygon(0 0, 100% 0, 95% 50%, 100% 100%, 0 100%, 5% 50%);
+}
+
+.ribbon::before {
+  content: '';
+  position: absolute;
+  inset: 4px 7%;
+  border-top: 1px solid rgba(231, 225, 213, 0.45);
+  border-bottom: 1px solid rgba(231, 225, 213, 0.45);
+  pointer-events: none;
+}
+
+.ink-stop {
+  position: absolute;
+  z-index: 2;
+  width: 30px;
+  height: 30px;
+  margin: -15px 0 0 -15px;
+  display: grid;
+  place-items: center;
+  border: 2px solid currentColor;
+  border-radius: 50%;
+  color: var(--brass);
+  font-size: 13px;
+  font-style: normal;
+  transition:
+    background 0.4s,
+    color 0.4s,
+    border-color 0.4s,
+    transform 0.7s var(--ease-out);
+}
+
+.ink-stop i {
+  font-style: normal;
+  line-height: 1;
+}
+
+.ink-stop.is-left {
+  left: max(16px, calc(var(--gutter) / 2));
+}
+
+.ink-stop.is-right {
+  left: calc(100% - max(16px, calc(var(--gutter) / 2)));
+}
+
+.ink-stop.is-inked {
+  background: #8c1f28;
+  border-color: #8c1f28;
+  color: var(--paper);
+  transform: scale(1.2) rotate(72deg);
+}
+
+.ink-brush {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
 }
 
 /* ---------- Arte (SVG flash) ---------- */
@@ -369,31 +451,14 @@ main {
   position: relative;
 }
 
+/* A pincelada (z-index 1) fica sobre o fundo das seções e sob o conteúdo (z-index 2). */
 main > section {
   position: relative;
-  z-index: 1;
 }
 
-.ink-thread {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 0;
-  pointer-events: none;
-  overflow: visible;
-}
-
-.ink-thread path {
-  fill: none;
-  stroke: var(--red);
-  stroke-width: 2;
-  stroke-linecap: round;
-}
-
-.ink-thread circle {
-  fill: var(--red);
-  transition: opacity 0.3s;
+main > section > * {
+  position: relative;
+  z-index: 2;
 }
 
 /* ---------- Badge ---------- */
@@ -495,13 +560,40 @@ main > section {
   font-size: inherit;
 }
 
-.hero-art {
+.hero-swallow {
   position: absolute;
   z-index: 1;
-  top: 13%;
-  right: 7vw;
-  width: clamp(120px, 16vw, 250px);
-  transform: rotate(10deg);
+  top: -42%;
+  width: clamp(80px, 13vw, 210px);
+  --card-bg: var(--paper);
+}
+
+.hero-swallow.is-left {
+  left: 4%;
+}
+
+.hero-swallow.is-left svg {
+  transform: scaleX(-1) rotate(-12deg);
+}
+
+.hero-swallow.is-right {
+  right: 4%;
+}
+
+.hero-swallow.is-right svg {
+  transform: rotate(-12deg);
+}
+
+.hero-ribbon {
+  position: relative;
+  z-index: 3;
+  margin-bottom: -0.4em;
+  transform: rotate(-2deg);
+}
+
+.hero-star {
+  display: inline-block;
+  color: var(--brass);
 }
 
 .hero-meta {
@@ -593,6 +685,7 @@ main > section {
 .mq-track i {
   font-style: normal;
   font-size: 0.45em;
+  color: var(--brass);
 }
 
 .mq-ink .mq-track span:nth-child(odd) {
@@ -678,16 +771,32 @@ main > section {
 }
 
 .flash-card-tilt {
-  --card-bg: #efe6d2;
+  --card-bg: #ece6da;
   position: relative;
-  padding: 16px 18px 18px;
+  padding: 20px 30px 22px;
   background: var(--card-bg);
   color: var(--ink);
+  border: 3px solid var(--ink);
   border-radius: 3px;
   box-shadow:
+    inset 0 0 0 5px var(--card-bg),
+    inset 0 0 0 6px var(--ink),
     0 2px 0 rgba(0, 0, 0, 0.1),
     0 30px 60px -20px rgba(0, 0, 0, 0.7);
   transform-style: preserve-3d;
+}
+
+/* cantoneiras ornamentais (toque neotradicional) */
+.flash-card-tilt::before {
+  content: '';
+  position: absolute;
+  inset: 8px;
+  pointer-events: none;
+  background:
+    url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2040%2040%27%3E%3Cg%20transform%3D%27%27%20fill%3D%27none%27%20stroke%3D%27%230e0c0c%27%20stroke-width%3D%271.6%27%20stroke-linecap%3D%27round%27%3E%3Cpath%20d%3D%27M4%2036V16C4%209%209%204%2016%204h20%27%2F%3E%3Cpath%20d%3D%27M10%2036V20c0-6%204-10%2010-10h16%27%2F%3E%3Cpath%20d%3D%27M16%2024c0-5%203-8%208-8%203%200%205%202%205%204s-2%203-3%203-2-1-2-2%27%2F%3E%3Ccircle%20cx%3D%274%27%20cy%3D%274%27%20r%3D%272.4%27%20fill%3D%27%237d1a22%27%20stroke%3D%27none%27%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E") top left / 26px no-repeat,
+    url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2040%2040%27%3E%3Cg%20transform%3D%27translate(40%200)%20scale(-1%201)%27%20fill%3D%27none%27%20stroke%3D%27%230e0c0c%27%20stroke-width%3D%271.6%27%20stroke-linecap%3D%27round%27%3E%3Cpath%20d%3D%27M4%2036V16C4%209%209%204%2016%204h20%27%2F%3E%3Cpath%20d%3D%27M10%2036V20c0-6%204-10%2010-10h16%27%2F%3E%3Cpath%20d%3D%27M16%2024c0-5%203-8%208-8%203%200%205%202%205%204s-2%203-3%203-2-1-2-2%27%2F%3E%3Ccircle%20cx%3D%274%27%20cy%3D%274%27%20r%3D%272.4%27%20fill%3D%27%237d1a22%27%20stroke%3D%27none%27%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E") top right / 26px no-repeat,
+    url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2040%2040%27%3E%3Cg%20transform%3D%27translate(0%2040)%20scale(1%20-1)%27%20fill%3D%27none%27%20stroke%3D%27%230e0c0c%27%20stroke-width%3D%271.6%27%20stroke-linecap%3D%27round%27%3E%3Cpath%20d%3D%27M4%2036V16C4%209%209%204%2016%204h20%27%2F%3E%3Cpath%20d%3D%27M10%2036V20c0-6%204-10%2010-10h16%27%2F%3E%3Cpath%20d%3D%27M16%2024c0-5%203-8%208-8%203%200%205%202%205%204s-2%203-3%203-2-1-2-2%27%2F%3E%3Ccircle%20cx%3D%274%27%20cy%3D%274%27%20r%3D%272.4%27%20fill%3D%27%237d1a22%27%20stroke%3D%27none%27%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E") bottom left / 26px no-repeat,
+    url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2040%2040%27%3E%3Cg%20transform%3D%27translate(40%2040)%20scale(-1%20-1)%27%20fill%3D%27none%27%20stroke%3D%27%230e0c0c%27%20stroke-width%3D%271.6%27%20stroke-linecap%3D%27round%27%3E%3Cpath%20d%3D%27M4%2036V16C4%209%209%204%2016%204h20%27%2F%3E%3Cpath%20d%3D%27M10%2036V20c0-6%204-10%2010-10h16%27%2F%3E%3Cpath%20d%3D%27M16%2024c0-5%203-8%208-8%203%200%205%202%205%204s-2%203-3%203-2-1-2-2%27%2F%3E%3Ccircle%20cx%3D%274%27%20cy%3D%274%27%20r%3D%272.4%27%20fill%3D%27%237d1a22%27%20stroke%3D%27none%27%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E") bottom right / 26px no-repeat;
 }
 
 .flash-card-tilt::after {
@@ -714,23 +823,35 @@ main > section {
 }
 
 .flash-card header {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.16em;
+  font: 12px/1.2 var(--letter);
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   padding-bottom: 10px;
-  border-bottom: 1px solid rgba(15, 13, 12, 0.2);
+  border-bottom: 1px solid rgba(14, 12, 12, 0.2);
   margin-bottom: 14px;
 }
 
-.flash-card .art {
-  padding: 0 6%;
+.flash-img {
+  --reveal: 150;
+  aspect-ratio: 3 / 4;
+  mix-blend-mode: multiply;
+  -webkit-mask-image: radial-gradient(circle at 50% 42%, #000 calc(var(--reveal) * 1%), transparent calc(var(--reveal) * 1% + 14%));
+  mask-image: radial-gradient(circle at 50% 42%, #000 calc(var(--reveal) * 1%), transparent calc(var(--reveal) * 1% + 14%));
+}
+
+.flash-img img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  /* lava o fundo de fumaça cinza pra arte parecer impressa no papel */
+  filter: grayscale(0.1) contrast(1.35) brightness(1.12);
 }
 
 .flash-card footer {
   margin-top: 12px;
   padding-top: 10px;
-  border-top: 1px solid rgba(15, 13, 12, 0.2);
+  border-top: 1px solid rgba(14, 12, 12, 0.2);
   font-size: 12px;
 }
 
@@ -773,9 +894,9 @@ main > section {
   display: inline-flex;
   gap: 0.4em;
   margin-top: 1.4rem;
-  font: clamp(1.4rem, 2.2vw, 2rem) / 1 var(--condensed);
+  font: clamp(1.2rem, 1.9vw, 1.7rem) / 1 var(--letter);
   text-transform: uppercase;
-  color: var(--red);
+  color: var(--brass);
   border-bottom: 2px solid currentColor;
   padding-bottom: 4px;
 }
@@ -794,13 +915,13 @@ main > section {
   right: 8vw;
   bottom: 34px;
   height: 2px;
-  background: rgba(235, 226, 207, 0.15);
+  background: rgba(231, 225, 213, 0.15);
 }
 
 .flash-progress span {
   display: block;
   height: 100%;
-  background: var(--red);
+  background: var(--brass);
   transform: scaleX(0);
   transform-origin: left;
 }
@@ -834,7 +955,7 @@ main > section {
 .stencil-progress {
   flex-shrink: 0;
   width: 2px;
-  background: rgba(15, 13, 12, 0.12);
+  background: rgba(14, 12, 12, 0.12);
 }
 
 .stencil-progress span {
@@ -919,45 +1040,67 @@ main > section {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.4' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .3 0 0 0 0 .2 0 0 0 .6 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-.skin .art {
+.tat {
   position: absolute;
   z-index: 1;
   top: 50%;
   left: 50%;
-  width: 66%;
+  width: 76%;
+  aspect-ratio: 405 / 668;
   translate: -50% -50%;
-}
-
-.art-stencil,
-.art-paper {
-  color: var(--stencil);
-}
-
-.art-stencil .fl,
-.art-stencil .ac,
-.art-paper .fl,
-.art-paper .ac {
-  display: none;
-}
-
-.art-stencil .pf,
-.art-paper .pf {
-  fill: none;
-}
-
-.art-stencil {
-  opacity: 0;
-  filter: blur(0.5px);
-}
-
-.art-ink {
-  color: #161211;
-  opacity: 0.94;
+  /* o grupo inteiro se multiplica sobre a pele (o translate isola o blend dos filhos) */
   mix-blend-mode: multiply;
 }
 
-.art-ink .ac {
-  fill: #a3261e;
+/* O traço vetorizado vira máscara: a mesma linha pintada de roxo (decalque) ou preto (tinta). */
+.tat-lines {
+  position: absolute;
+  inset: 0;
+  -webkit-mask: url('/decalque/linhas.svg') center / contain no-repeat;
+  mask: url('/decalque/linhas.svg') center / contain no-repeat;
+}
+
+.tat-stencil {
+  background: var(--stencil);
+  opacity: 0;
+  filter: blur(0.4px);
+}
+
+.tat-ink {
+  --ink: -10%;
+  background: #161211;
+  opacity: 0.95;
+  -webkit-mask-image: url('/decalque/linhas.svg'), linear-gradient(to bottom, #000 var(--ink), transparent calc(var(--ink) + 8%));
+  -webkit-mask-size: contain, 100% 100%;
+  -webkit-mask-composite: source-in;
+  mask-image: url('/decalque/linhas.svg'), linear-gradient(to bottom, #000 var(--ink), transparent calc(var(--ink) + 8%));
+  mask-size: contain, 100% 100%;
+  mask-composite: intersect;
+}
+
+.tat-needle {
+  position: absolute;
+  left: -8%;
+  right: -8%;
+  top: -4%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(22, 18, 17, 0.55), transparent);
+  opacity: 0;
+}
+
+.tat-color {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 0;
+  /* lava o fundo cinza do mockup pra sobrar só a tatuagem sobre a pele */
+  filter: contrast(1.45) brightness(1.15) saturate(1.1);
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 9%, #000 91%, transparent), linear-gradient(transparent, #000 5%, #000 95%, transparent);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(to right, transparent, #000 9%, #000 91%, transparent), linear-gradient(transparent, #000 5%, #000 95%, transparent);
+  mask-composite: intersect;
 }
 
 .glint {
@@ -985,7 +1128,13 @@ main > section {
   backface-visibility: visible;
 }
 
-.art-paper {
+/* visto pelas costas do papel: o desenho aparece espelhado */
+.tat-paper {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 405 / 668;
+  background: var(--stencil);
   opacity: 0.4;
   filter: blur(0.6px);
   transform: scaleX(-1);
@@ -1023,24 +1172,24 @@ main > section {
   display: grid;
   place-items: center;
   background:
-    radial-gradient(circle at 50% 38%, rgba(184, 35, 27, 0.35), transparent 55%),
+    radial-gradient(circle at 50% 38%, rgba(125, 26, 34, 0.45), transparent 55%),
     radial-gradient(circle at 50% 40%, #2b2522, #110f0e 75%);
 }
 
-.about-monogram {
-  width: 62%;
-  color: var(--paper);
-  opacity: 0.9;
+.about-portrait-inner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 62% 40%;
+  filter: grayscale(1) contrast(1.08);
 }
 
-.about-photo-note {
+.about-portrait-inner::after {
+  content: '';
   position: absolute;
-  bottom: 18px;
-  left: 18px;
-  font-size: 11px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  opacity: 0.45;
+  inset: 0;
+  background: linear-gradient(to top, rgba(90, 18, 24, 0.55), transparent 55%);
+  mix-blend-mode: multiply;
 }
 
 .about-badge {
@@ -1084,7 +1233,7 @@ main > section {
   left: 0;
   right: 0;
   height: 1px;
-  background: rgba(235, 226, 207, 0.35);
+  background: rgba(231, 225, 213, 0.35);
   transform: scaleX(var(--line));
   transform-origin: left;
 }
@@ -1098,7 +1247,7 @@ main > section {
 
 .stat dd {
   font: clamp(2.4rem, 4.4vw, 4rem) / 1.1 var(--condensed);
-  color: var(--red);
+  color: var(--brass);
 }
 
 /* ---------- Contato ---------- */
@@ -1195,7 +1344,7 @@ main > section {
   left: 0;
   right: 0;
   height: 1px;
-  background: rgba(15, 13, 12, 0.3);
+  background: rgba(14, 12, 12, 0.3);
   transform: scaleX(var(--line));
   transform-origin: left;
 }
@@ -1251,7 +1400,7 @@ main > section {
 }
 
 .footer-big > div:hover {
-  color: var(--red);
+  color: var(--brass);
 }
 
 .footer-meta {
@@ -1300,11 +1449,8 @@ main > section {
     gap: 4px;
   }
 
-  .hero-art {
-    top: auto;
-    bottom: 20%;
-    right: 6vw;
-    width: 110px;
+  .hero-swallow {
+    top: -70%;
   }
 
   .hero-meta-bottom {
@@ -1326,6 +1472,10 @@ main > section {
 
   .flash-card {
     width: 68vw;
+  }
+
+  .flash-card-tilt {
+    padding: 18px 22px;
   }
 
   .flash-outro {

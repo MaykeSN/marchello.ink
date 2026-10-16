@@ -30,7 +30,7 @@ export function Preloader({ onReveal, onDone }: Props) {
         .fromTo('.pre-drop', { y: '-55vh', scaleY: 1.6 }, { y: 0, scaleY: 1, duration: 0.55, ease: 'power2.in' }, 1.75)
         .set('.pre-drop', { autoAlpha: 0 })
         .fromTo('.pre-ink', { scale: 0 }, { scale: 1, duration: 1.15, ease: 'expo.inOut' })
-        .to('.pre-count, .pre-meta', { color: '#ebe2cf', duration: 0.3 }, '<0.35')
+        .to('.pre-count, .pre-meta', { color: '#e7e1d5', duration: 0.3 }, '<0.35')
         .to('.pre-count, .pre-meta', { yPercent: -30, autoAlpha: 0, duration: 0.5, ease: 'power2.in' }, '>0.1')
         .add(onReveal)
         .to(root.current, { clipPath: 'inset(0% 0% 100% 0%)', duration: 1.1, ease: 'expo.inOut' })

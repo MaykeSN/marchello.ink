@@ -1,14 +1,14 @@
 import { useRef } from 'react'
-import { FlashArt, type ArtId } from '../art/FlashArt'
 import { steps } from '../data/site'
 import { gsap, useGSAP } from '../lib/gsap'
-
-const ART: ArtId = 'dagger'
+import { InkStop } from './Ornaments'
 
 /**
- * Sequência fixada no scroll que simula o processo real:
+ * Sequência fixada no scroll com uma tatuagem real do Marchello:
  * papel com o desenho -> decalque roxo na pele -> papel descola ->
- * a tinta preta é tatuada por cima -> pele cicatrizada com brilho.
+ * o traço preto é tatuado por cima -> entram sombra e cor -> brilho de pele nova.
+ * O traço é um SVG vetorizado da arte (public/decalque/linhas.svg), usado como
+ * máscara pra pintar a mesma linha em roxo ou em preto.
  */
 export function StencilTransfer() {
   const root = useRef<HTMLElement>(null)
@@ -37,22 +37,25 @@ export function StencilTransfer() {
           { yPercent: 0, rotate: -2, scale: 1, autoAlpha: 1, duration: 1, ease: 'power2.out' },
         )
         .to('.paper-sheet', { scale: 0.97, rotate: 0, duration: 0.3, ease: 'power2.inOut' })
-        .set('.art-stencil', { opacity: 1 })
+        .set('.tat-stencil', { opacity: 1 })
         .call(activate(1))
         // 2. papel descola de baixo pra cima
         .to('.paper-sheet', { rotateX: 105, duration: 1.2, ease: 'power2.in' }, '+=0.2')
         .to('.paper-shade', { opacity: 0.8, duration: 1.2, ease: 'power2.in' }, '<')
         .to('.paper-sheet', { yPercent: -80, autoAlpha: 0, duration: 0.5 })
         .call(activate(2))
-        // 3. tinta substitui o roxo
-        .from('.art-ink .ln', { drawSVG: 0, duration: 2.2, stagger: 0.12 }, '+=0.1')
-        .to('.art-stencil', { opacity: 0.18, duration: 2 }, '<')
-        .to('.skin', { '--redness': 1, duration: 2 }, '<')
-        .from('.art-ink .fl, .art-ink .ac, .art-ink .pf', { opacity: 0, duration: 0.6, stagger: 0.08 })
-        .to('.art-stencil', { opacity: 0, duration: 0.4 }, '<')
+        // 3. o traço preto é tatuado de cima pra baixo por cima do roxo
+        .fromTo('.tat-ink', { '--ink': '-10%' }, { '--ink': '110%', duration: 2.6 }, '+=0.1')
+        .fromTo('.tat-needle', { top: '-4%', autoAlpha: 1 }, { top: '104%', duration: 2.6 }, '<')
+        .set('.tat-needle', { autoAlpha: 0 })
+        .to('.tat-stencil', { opacity: 0.12, duration: 2.4 }, '<-2.4')
+        .to('.skin', { '--redness': 1, duration: 2.4 }, '<')
         .call(activate(3))
-        // 4. pele nova
-        .to('.skin', { '--redness': 0, duration: 0.8 })
+        // 4. sombra e cor, e a pele cicatriza
+        .to('.tat-color', { opacity: 1, duration: 1.4 }, '+=0.1')
+        .to('.tat-stencil', { opacity: 0, duration: 0.6 }, '<')
+        .to('.tat-ink', { opacity: 0, duration: 1.4 }, '<')
+        .to('.skin', { '--redness': 0, duration: 1 })
         .fromTo('.glint', { xPercent: -160 }, { xPercent: 160, duration: 1.2, ease: 'power2.inOut' }, '<')
         .to({}, { duration: 0.4 })
 
@@ -67,8 +70,9 @@ export function StencilTransfer() {
 
   return (
     <section className="stencil" id="decalque" ref={root}>
+      <InkStop side="right" top="10%" />
       <div className="stencil-copy">
-        <p className="eyebrow">( do papel pra pele )</p>
+        <p className="eyebrow">★ do papel pra pele ★</p>
         <h2>
           O <em>decalque</em>
         </h2>
@@ -92,12 +96,16 @@ export function StencilTransfer() {
 
       <div className="stencil-stage">
         <div className="skin">
-          <FlashArt id={ART} className="art-stencil" />
-          <FlashArt id={ART} className="art-ink" />
+          <div className="tat">
+            <img className="tat-color" src="/decalque/cor.webp" alt="Tatuagem neotradicional do Marchello: mulher com crânio de carneiro" loading="lazy" decoding="async" />
+            <span className="tat-lines tat-stencil" />
+            <span className="tat-lines tat-ink" />
+            <span className="tat-needle" />
+          </div>
           <span className="glint" />
         </div>
         <div className="paper-sheet">
-          <FlashArt id={ART} className="art-paper" />
+          <span className="tat-lines tat-paper" />
           <span className="paper-shade" />
         </div>
       </div>

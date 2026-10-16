@@ -1,5 +1,6 @@
 import { useRef } from 'react'
 import { gsap, SplitText, useGSAP } from '../lib/gsap'
+import { InkStop } from './Ornaments'
 
 /** Texto que vai sendo "tingido" palavra por palavra com o scroll. */
 export function Manifesto() {
@@ -37,7 +38,8 @@ export function Manifesto() {
 
   return (
     <section className="manifesto" ref={root}>
-      <p className="eyebrow">( manifesto )</p>
+      <InkStop side="right" top="22%" />
+      <p className="eyebrow">★ manifesto ★</p>
       <p className="manifesto-text" ref={text}>
         Cada traço começa como <em>decalque</em> e termina como parte de quem você é. Desenhos <em>autorais</em>, feitos
         à mão, pensados pra envelhecer bonito na <em>pele</em> — e pra nunca existirem duas vezes.

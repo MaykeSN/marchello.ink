@@ -1,6 +1,6 @@
 import { useEffect, type RefObject } from 'react'
 
-const INK = '#0f0d0c'
+const INK = '#0e0c0c'
 
 /**
  * Pincel de tinta que segue o mouse num <canvas>.

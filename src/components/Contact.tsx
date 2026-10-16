@@ -2,6 +2,7 @@ import { useRef, type PointerEvent } from 'react'
 import { artist, contacts, whatsapp } from '../data/site'
 import { gsap, SplitText, useGSAP } from '../lib/gsap'
 import { scrollToTarget } from '../lib/lenis'
+import { InkStop } from './Ornaments'
 import { RotatingBadge } from './RotatingBadge'
 
 const magnet = (e: PointerEvent<HTMLElement>) => {
@@ -72,9 +73,10 @@ export function Contact() {
 
   return (
     <section className="contact" id="contato" ref={root}>
+      <InkStop side="right" top="5%" />
       <div className="contact-head">
         <div>
-          <p className="eyebrow">( agenda aberta )</p>
+          <p className="eyebrow">★ agenda aberta ★</p>
           <h2 className="contact-title">
             Bora marcar
             <br />

@@ -1,7 +1,7 @@
 import { useRef, type CSSProperties, type PointerEvent } from 'react'
-import { FlashArt } from '../art/FlashArt'
 import { flash } from '../data/site'
 import { gsap, useGSAP } from '../lib/gsap'
+import { InkStop } from './Ornaments'
 import { scrollToTarget } from '../lib/lenis'
 
 const tilt = (e: PointerEvent<HTMLElement>) => {
@@ -47,10 +47,12 @@ export function FlashGallery() {
 
       gsap.utils.toArray<HTMLElement>('.flash-card').forEach((card) => {
         const ca = { containerAnimation: scroller, trigger: card }
-        gsap
-          .timeline({ scrollTrigger: { ...ca, start: 'left 95%', end: 'left 35%', scrub: true } })
-          .from(card.querySelectorAll('.ln'), { drawSVG: 0, stagger: 0.04, ease: 'none' })
-          .from(card.querySelectorAll('.fl, .ac, .pf'), { opacity: 0, stagger: 0.03, ease: 'none' }, '>-0.15')
+        // a arte "brota" como uma mancha de tinta se espalhando no papel
+        gsap.from(card.querySelector('.flash-img'), {
+          '--reveal': 0,
+          ease: 'none',
+          scrollTrigger: { ...ca, start: 'left 95%', end: 'left 30%', scrub: true },
+        })
 
         gsap.from(card.querySelector('.flash-card-tilt'), {
           yPercent: 18,
@@ -83,9 +85,10 @@ export function FlashGallery() {
 
   return (
     <section className="flash" id="flash" ref={root}>
+      <InkStop side="left" top="14%" />
       <div className="flash-track" ref={track}>
         <div className="flash-intro">
-          <p className="eyebrow">( flash day / artes disponíveis )</p>
+          <p className="eyebrow">★ flash day / artes disponíveis ★</p>
           <h2>
             <span className="mask"><span>Flash</span></span>
             <span className="mask"><span className="outline">sheet</span></span>
@@ -96,13 +99,15 @@ export function FlashGallery() {
         </div>
 
         {flash.map((item, i) => (
-          <article className="flash-card" key={item.art} style={{ '--r': `${i % 2 ? 2.5 : -2}deg` } as CSSProperties}>
+          <article className="flash-card" key={item.image} style={{ '--r': `${i % 2 ? 2.5 : -2}deg` } as CSSProperties}>
             <div className="flash-card-tilt" data-cursor={item.available ? 'quero!' : 'já foi'} onPointerMove={tilt} onPointerLeave={untilt}>
               <header>
                 <span>Nº {String(i + 1).padStart(2, '0')}</span>
                 <span>{item.style}</span>
               </header>
-              <FlashArt id={item.art} />
+              <div className="flash-img">
+                <img src={item.image} alt={`${item.name} — ${item.style}`} loading="lazy" decoding="async" />
+              </div>
               <footer>
                 <strong>{item.name}</strong>
                 <span>{item.size}</span>

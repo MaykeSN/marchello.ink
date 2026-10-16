@@ -1,7 +1,7 @@
-import { useRef, type CSSProperties } from 'react'
-import { FlashArt } from '../art/FlashArt'
+import { useRef } from 'react'
 import { artist } from '../data/site'
 import { gsap, SplitText, useGSAP } from '../lib/gsap'
+import { InkStop } from './Ornaments'
 import { RotatingBadge } from './RotatingBadge'
 
 export function About() {
@@ -15,7 +15,6 @@ export function About() {
         .timeline({ scrollTrigger: { trigger: '.about-portrait', start: 'top 85%', end: 'bottom 40%', scrub: true } })
         .fromTo('.about-portrait', { clipPath: 'inset(100% 0% 0% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', ease: 'none' })
         .from('.about-portrait-inner', { scale: 1.4, ease: 'none' }, 0)
-        .from('.about-monogram .ln', { drawSVG: 0, stagger: 0.05, ease: 'none' }, 0.1)
 
       SplitText.create('.about-copy h2', {
         type: 'chars',
@@ -69,11 +68,10 @@ export function About() {
 
   return (
     <section className="about" id="sobre" ref={root}>
+      <InkStop side="left" top="9%" />
       <div className="about-portrait" data-cursor="prazer!">
         <div className="about-portrait-inner">
-          {/* TODO: trocar pelo retrato real do artista (<img src=... />) */}
-          <FlashArt id="skull" className="about-monogram" style={{ '--card-bg': '#1d1918' } as CSSProperties} />
-          <span className="about-photo-note">foto do artista</span>
+          <img src="/marchello.webp" alt="Marchello tatuando no estúdio" loading="lazy" decoding="async" />
         </div>
         <RotatingBadge text="TINTA • AGULHA • PAPEL • PELE • TINTA • AGULHA • PAPEL • PELE • " className="about-badge">
           <span className="badge-drop" />
@@ -81,7 +79,7 @@ export function About() {
       </div>
 
       <div className="about-copy">
-        <p className="eyebrow">( o artista )</p>
+        <p className="eyebrow">★ o artista ★</p>
         <h2>{artist.name}</h2>
         <div className="about-bio">
           {artist.bio.map((p) => (

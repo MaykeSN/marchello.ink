@@ -5,7 +5,7 @@ import { Cursor } from './components/Cursor'
 import { FlashGallery } from './components/FlashGallery'
 import { Hero } from './components/Hero'
 import { InkDefs } from './components/InkDefs'
-import { InkThread } from './components/InkThread'
+import { InkBrush } from './components/InkBrush'
 import { Manifesto } from './components/Manifesto'
 import { Marquee } from './components/Marquee'
 import { Nav } from './components/Nav'
@@ -43,7 +43,7 @@ export default function App() {
       <Cursor />
       <Nav />
       <main id="main">
-        <InkThread />
+        <InkBrush />
         <Hero ready={phase !== 'loading'} />
         <Marquee />
         <Manifesto />
