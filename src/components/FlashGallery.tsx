@@ -1,8 +1,12 @@
 import { useRef, type CSSProperties, type PointerEvent } from 'react'
-import { flash } from '../data/site'
+import { flash, flashImg, featured } from '../data/flash'
 import { gsap, useGSAP } from '../lib/gsap'
-import { InkStop } from './Ornaments'
 import { scrollToTarget } from '../lib/lenis'
+import { openArt } from './Lightbox'
+import { InkStop } from './Ornaments'
+
+const featuredSlugs = featured.map((f) => f.slug)
+const number = (slug: string) => String(flash.findIndex((f) => f.slug === slug) + 1).padStart(2, '0')
 
 const tilt = (e: PointerEvent<HTMLElement>) => {
   const el = e.currentTarget
@@ -16,7 +20,7 @@ const tilt = (e: PointerEvent<HTMLElement>) => {
 const untilt = (e: PointerEvent<HTMLElement>) =>
   gsap.to(e.currentTarget, { rotateY: 0, rotateX: 0, duration: 1, ease: 'elastic.out(1, 0.5)' })
 
-/** Galeria horizontal fixada: cada arte é "tatuada" quando entra na tela. */
+/** Vitrine principal: os destaques numa galeria horizontal fixada. */
 export function FlashGallery() {
   const root = useRef<HTMLElement>(null)
   const track = useRef<HTMLDivElement>(null)
@@ -60,16 +64,6 @@ export function FlashGallery() {
           ease: 'none',
           scrollTrigger: { ...ca, start: 'left 110%', end: 'left 50%', scrub: true },
         })
-
-        const stamp = card.querySelector('.stamp')
-        if (stamp)
-          gsap.from(stamp, {
-            scale: 3,
-            opacity: 0,
-            duration: 0.35,
-            ease: 'power4.in',
-            scrollTrigger: { ...ca, start: 'left 45%', toggleActions: 'play none none reverse' },
-          })
       })
 
       gsap.from('.flash-intro h2 .mask > span', {
@@ -88,45 +82,61 @@ export function FlashGallery() {
       <InkStop side="left" top="14%" />
       <div className="flash-track" ref={track}>
         <div className="flash-intro">
-          <p className="eyebrow">★ flash day / artes disponíveis ★</p>
+          <p className="eyebrow">★ flash day / destaques ★</p>
           <h2>
             <span className="mask"><span>Flash</span></span>
             <span className="mask"><span className="outline">sheet</span></span>
           </h2>
           <p className="flash-lead">
-            Desenhos prontos e exclusivos. Cada um é tatuado uma única vez — depois, sai da cartela pra sempre.
+            Os {featured.length} desenhos mais fortes da cartela. Todos exclusivos: cada um é tatuado uma única vez e depois sai da cartela pra sempre.
           </p>
+          <p className="flash-hint">Clique numa arte pra ver de perto.</p>
         </div>
 
-        {flash.map((item, i) => (
-          <article className="flash-card" key={item.image} style={{ '--r': `${i % 2 ? 2.5 : -2}deg` } as CSSProperties}>
-            <div className="flash-card-tilt" data-cursor={item.available ? 'quero!' : 'já foi'} onPointerMove={tilt} onPointerLeave={untilt}>
+        {featured.map((item, i) => (
+          <article className="flash-card" key={item.slug} style={{ '--r': `${i % 2 ? 2.5 : -2}deg` } as CSSProperties}>
+            <button
+              type="button"
+              className="flash-card-tilt"
+              data-cursor="ver"
+              onPointerMove={tilt}
+              onPointerLeave={untilt}
+              onClick={(e) => openArt({ slug: item.slug, list: featuredSlugs, from: e.currentTarget })}
+              aria-label={`Ver ${item.name} em tela cheia`}
+            >
               <header>
-                <span>Nº {String(i + 1).padStart(2, '0')}</span>
+                <span>Nº {number(item.slug)}</span>
                 <span>{item.style}</span>
               </header>
               <div className="flash-img">
-                <img src={item.image} alt={`${item.name} — ${item.style}`} loading="lazy" decoding="async" />
+                <img
+                  src={flashImg(item.slug, true)}
+                  data-flip-id={`art-${item.slug}`}
+                  width={item.w}
+                  height={item.h}
+                  alt=""
+                  loading="lazy"
+                  decoding="async"
+                />
               </div>
               <footer>
                 <strong>{item.name}</strong>
-                <span>{item.size}</span>
+                <span>{item.size ?? 'sob consulta'}</span>
               </footer>
-              <span className={`stamp ${item.available ? '' : 'is-gone'}`}>{item.available ? 'Disponível' : 'Tatuado'}</span>
-            </div>
+            </button>
           </article>
         ))}
 
         <div className="flash-outro">
-          <p>Quer algo só seu?</p>
+          <p>Tem mais {flash.length - featured.length} na cartela.</p>
           <a
-            href="#contato"
+            href="#cartela"
             onClick={(e) => {
               e.preventDefault()
-              scrollToTarget('#contato')
+              scrollToTarget('#cartela')
             }}
           >
-            Bora criar junto <span>→</span>
+            Ver todas as {flash.length} artes <span>↓</span>
           </a>
         </div>
       </div>

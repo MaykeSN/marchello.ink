@@ -4,6 +4,7 @@ import { scrollToTarget } from '../lib/lenis'
 
 const links = [
   ['Flash', '#flash'],
+  ['Cartela', '#cartela'],
   ['Decalque', '#decalque'],
   ['Sobre', '#sobre'],
   ['Contato', '#contato'],

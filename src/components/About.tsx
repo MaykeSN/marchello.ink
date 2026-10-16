@@ -71,7 +71,7 @@ export function About() {
       <InkStop side="left" top="9%" />
       <div className="about-portrait" data-cursor="prazer!">
         <div className="about-portrait-inner">
-          <img src="/marchello.webp" alt="Marchello tatuando no estúdio" loading="lazy" decoding="async" />
+          <img src={`${import.meta.env.BASE_URL}marchello.webp`} alt="Marchello tatuando no estúdio" loading="lazy" decoding="async" />
         </div>
         <RotatingBadge text="TINTA • AGULHA • PAPEL • PELE • TINTA • AGULHA • PAPEL • PELE • " className="about-badge">
           <span className="badge-drop" />

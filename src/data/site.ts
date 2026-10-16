@@ -18,36 +18,21 @@ export const artist = {
 }
 
 export const contacts = [
-  { label: 'WhatsApp', value: '+55 35 9870-7678', href: 'https://wa.me/message/3NZF3LEKAGYCP1' },
+  { label: 'WhatsApp', value: '+55 35 9 9870-7678', href: 'https://wa.me/message/3NZF3LEKAGYCP1' },
   { label: 'Instagram', value: '@marchello.ink', href: 'https://instagram.com/marchello.ink' },
   {
     label: 'Estúdio',
-    value: 'Praça Presidente Vargas, 40 — Centro, Extrema/MG',
-    href: 'https://www.google.com/maps/search/?api=1&query=Pra%C3%A7a+Presidente+Vargas%2C+40%2C+Centro%2C+Extrema+-+MG',
+    value: 'Praça Presidente Vargas, 40 — Centro, Extrema/MG · CEP 37640-076',
+    href: 'https://www.google.com/maps/search/?api=1&query=Pra%C3%A7a+Presidente+Vargas%2C+40%2C+Centro%2C+Extrema+-+MG%2C+37640-076',
   },
 ]
 
 export const whatsapp = contacts[0].href
 
-export type FlashItem = {
-  image: string
-  name: string
-  style: string
-  size: string
-  available: boolean
-}
+// Número no formato do wa.me, pra abrir a conversa já com a arte escolhida
+const WA_NUMBER = '5535998707678'
+export const whatsappAbout = (text: string) => `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(text)}`
 
-// Artes disponíveis (recortadas dos stories "Disponíveis" do Instagram).
-// TODO: confirmar com o Marchello o que ainda está disponível e os tamanhos.
-export const flash: FlashItem[] = [
-  { image: '/flash/gueixa.webp', name: 'Gueixa', style: 'Neotradicional', size: 'sob consulta', available: true },
-  { image: '/flash/passaro-rosa.webp', name: 'Pássaro e rosa', style: 'Blackwork', size: 'sob consulta', available: true },
-  { image: '/flash/valquiria.webp', name: 'Valquíria', style: 'Neotradicional', size: 'sob consulta', available: true },
-  { image: '/flash/deusa-da-lua.webp', name: 'Deusa da lua', style: 'Neotradicional', size: 'mín. 15 cm', available: true },
-  { image: '/flash/encapuzada.webp', name: 'Encapuzada', style: 'Blackwork', size: 'sob consulta', available: true },
-  { image: '/flash/medusa.webp', name: 'Medusa', style: 'Blackwork', size: 'sob consulta', available: true },
-  { image: '/flash/melancolia.webp', name: 'Melancolia', style: 'Realismo', size: 'sob consulta', available: true },
-]
 
 export const steps = [
   { title: 'Desenho', text: 'Criado à mão a partir da sua ideia e ajustado ao seu corpo.' },

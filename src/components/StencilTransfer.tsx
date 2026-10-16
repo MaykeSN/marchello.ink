@@ -97,7 +97,7 @@ export function StencilTransfer() {
       <div className="stencil-stage">
         <div className="skin">
           <div className="tat">
-            <img className="tat-color" src="/decalque/cor.webp" alt="Tatuagem neotradicional do Marchello: mulher com crânio de carneiro" loading="lazy" decoding="async" />
+            <img className="tat-color" src={`${import.meta.env.BASE_URL}decalque/cor.webp`} alt="Tatuagem neotradicional do Marchello: mulher com crânio de carneiro" loading="lazy" decoding="async" />
             <span className="tat-lines tat-stencil" />
             <span className="tat-lines tat-ink" />
             <span className="tat-needle" />
