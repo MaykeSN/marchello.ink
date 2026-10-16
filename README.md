@@ -23,6 +23,14 @@ npm run dev      # http://localhost:5173
 npm run build    # gera dist/
 ```
 
+## Deploy
+
+O site publica sozinho no GitHub Pages a cada push na `main` (workflow em `.github/workflows/deploy.yml`): **https://maykesn.github.io/marchello.ink/**
+
+- Em **Settings → Pages**, o Source precisa estar em **GitHub Actions**. Em "Deploy from a branch" o GitHub publica o código-fonte cru e a página fica em branco.
+- Pra publicar de novo sem commit: **Actions → Deploy no GitHub Pages → Run workflow**.
+- O prefixo `/marchello.ink/` vem do Pages via `BASE_PATH`. Com domínio próprio ele vira `/` sozinho.
+
 ## Onde mexer
 
 - **`src/data/site.ts`**: todo o conteúdo (nome, bio, números, contatos, lista do flash e etapas do decalque). Os itens marcados com `TODO` são placeholders.
