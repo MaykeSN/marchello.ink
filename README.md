@@ -40,6 +40,7 @@ O site publica sozinho no GitHub Pages a cada push na `main` (workflow em `.gith
 - **`assets-src/`** (fora do git): originais pesados (zip, prints dos stories, fotos) e as artes já tatuadas. Não vão pro site.
 - **`src/art/FlashArt.tsx`**: ilustrações em SVG ainda usadas em detalhes (andorinhas do hero).
 - **`src/styles/global.css`**: paleta (variáveis em `:root`), tipografia e layout.
+- **`public/escolhas/`**: página "Monte o seu site", em que o cliente escolhe paleta, fontes, animações, estrutura e textos (com o atual marcado e no mínimo 5 opções por item) e gera um código com as escolhas. Publicada em `/escolhas/`. Cada opção tem um `spec` em `escolhas.js` com a descrição técnica que vai no código, e o link no fim do código reabre as escolhas na página. Em dev, abra `/escolhas/index.html`, porque em `/escolhas/` o Vite serve a SPA.
 
 ## Seções e animações
 

@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Monte o seu site · Marchello Ink</title>
+    <meta name="description" content="Escolha cores, fontes, animações e estilo do site do Marchello Ink. No final, gere um código e mande pro desenvolvedor." />
+    <meta name="theme-color" content="#141111" />
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pirata+One&family=UnifrakturCook:wght@700&family=Grenze+Gotisch:wght@500;700&family=Fruktur&family=New+Rocker&family=Abril+Fatface&family=Cinzel+Decorative:wght@700&family=Playfair+Display:ital,wght@0,700;1,700&family=Rye&family=Sancreek&family=Smokum&family=Cinzel:wght@600;700&family=Special+Elite&family=IM+Fell+English+SC&family=Anton&family=Bebas+Neue&family=Oswald:wght@500;600&family=League+Gothic&family=Antonio:wght@700&family=Alfa+Slab+One&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=Inter:wght@400;500;700&family=Space+Grotesk:wght@400;500;700&family=Work+Sans:wght@400;500;700&family=Cormorant+Garamond:wght@500;600;700&family=EB+Garamond:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&family=Mrs+Saint+Delafield&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="escolhas.css" />
+  </head>
+  <body>
+    <header class="intro">
+      <p class="intro-brand">Marchello Ink</p>
+      <h1>Monte o seu site</h1>
+      <p class="intro-lead">
+        Aqui você decide como quer cada detalhe: cores, letras, animações, estilo das artes, o que aparece e o que sai.
+      </p>
+      <ol class="intro-how">
+        <li><b>1</b><span>Em cada item, toque na opção que você prefere. A marcada <em class="tag-atual">atual</em> é como o site está hoje.</span></li>
+        <li><b>2</b><span>Se não mexer num item, ele continua igual. Dá pra deixar um comentário em qualquer um.</span></li>
+        <li><b>3</b><span>No final, gere o código e me mande pelo WhatsApp. Suas escolhas ficam salvas neste aparelho.</span></li>
+      </ol>
+      <div class="intro-actions">
+        <a class="intro-go" href="#etapa-identidade">Começar ↓</a>
+        <a class="intro-site" href="../" target="_blank" rel="noreferrer">Ver o site como está hoje ↗</a>
+      </div>
+    </header>
+
+    <div class="bar" id="bar">
+      <nav class="bar-steps" id="bar-steps" aria-label="Etapas"></nav>
+      <div class="bar-side">
+        <span class="bar-progress" id="bar-progress" aria-live="polite"></span>
+      </div>
+    </div>
+    <button class="fab-preview" id="open-preview" type="button">Ver prévia</button>
+
+    <div class="layout">
+      <main id="steps"></main>
+      <aside class="preview" id="preview" aria-label="Prévia ao vivo">
+        <div class="preview-head">
+          <div>
+            <strong>Prévia ao vivo</strong>
+            <small>Miniatura do site com as suas escolhas de cor, letra e estilo.</small>
+          </div>
+          <button class="preview-close" id="close-preview" type="button" aria-label="Fechar prévia">✕</button>
+        </div>
+        <div class="preview-scroll" id="preview-scroll">
+          <div class="site" id="site"></div>
+        </div>
+      </aside>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="escolhas.js"></script>
+  </body>
+</html>
