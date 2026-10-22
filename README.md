@@ -36,7 +36,7 @@ O site publica sozinho no GitHub Pages a cada push na `main` (workflow em `.gith
 - **`src/data/site.ts`**: todo o conteúdo (nome, bio, números, contatos, lista do flash e etapas do decalque). Os itens marcados com `TODO` são placeholders.
 - **`src/data/flash.ts`**: catálogo das artes disponíveis (gerado, não edite à mão). Veja "Artes do flash" abaixo.
 - **`public/decalque/`**: `linhas.svg` é o traço vetorizado (potrace) da tatuagem usada na seção do decalque; `cor.webp` é a versão final colorida. O SVG é usado como máscara CSS pra pintar a mesma linha de roxo (decalque) ou preto (traço).
-- **`public/marchello.webp`**: retrato da seção "sobre".
+- **`src/data/works.ts`**: tatuagens prontas e fotos do artista (gerado por `npm run drive`). Veja "Fotos do Drive" abaixo.
 - **`assets-src/`** (fora do git): originais pesados (zip, prints dos stories, fotos) e as artes já tatuadas. Não vão pro site.
 - **`src/art/FlashArt.tsx`**: ilustrações em SVG ainda usadas em detalhes (andorinhas do hero).
 - **`src/styles/global.css`**: paleta (variáveis em `:root`), tipografia e layout.
@@ -49,12 +49,13 @@ O site publica sozinho no GitHub Pages a cada push na `main` (workflow em `.gith
 3. **Pincelada de tinta**: um traço de pincel (canvas fixo) cuja ponta acompanha o scroll e passa por um ponto (★) em cada seção, estourando numa mancha com respingos ao chegar. Ele desce pela margem e só cruza a página na divisa entre seções.
 4. **Marquee**: faixas cruzadas que aceleram e inclinam conforme a velocidade do scroll.
 5. **Manifesto**: o texto vai sendo tingido palavra por palavra.
-6. **Flash (destaques)**: galeria horizontal fixada com as 12 artes de nota mais alta. Cada uma "brota" como mancha de tinta no papel; os cards têm moldura dupla, cantoneiras e tilt 3D.
-7. **Cartela completa**: as 44 artes disponíveis em grade, com filtro por estilo (Neotradicional, Blackwork, Fine line & realismo, Minis) que reorganiza a grade com Flip.
+6. **Flash (destaques)**: galeria horizontal fixada com as 14 artes de nota mais alta. Cada uma "brota" como mancha de tinta no papel; os cards têm moldura dupla, cantoneiras e tilt 3D.
+7. **Cartela completa**: as 47 artes disponíveis em grade, com filtro por estilo (Neotradicional, Blackwork, Fine line & realismo, Minis) que reorganiza a grade com Flip.
 8. **Visualizador**: clicar numa arte faz ela "voar" até a tela cheia (Flip), com setas/teclado pra navegar e o botão "Quero essa", que abre o WhatsApp com o nome e o número da arte.
 9. **Decalque**: com uma tatuagem real do Marchello. O papel encosta na pele, descola em 3D e deixa o decalque roxo; o traço preto é tatuado de cima pra baixo, entram sombra e cor, e a pele "cicatriza" com brilho.
-10. **Sobre**: retrato revelado por máscara, títulos por letra e contadores.
-11. **Contato**: título revelado por linha, botão magnético do WhatsApp e linhas que se enchem de tinta no hover.
+10. **Trabalhos ("Na pele")**: foto do estúdio com parallax e um mosaico com as tatuagens prontas, filtro por estilo e o mesmo visualizador, com "Quero algo assim" no WhatsApp.
+11. **Sobre**: retrato profissional revelado por máscara, uma segunda foto flutuando em parallax, títulos por letra e contadores.
+12. **Contato**: título revelado por linha, botão magnético do WhatsApp e linhas que se enchem de tinta no hover.
 
 Extras: cursor customizado com rótulos (`data-cursor="texto"`), respingo de tinta no clique e grão de papel animado. Com `prefers-reduced-motion`, o preloader e o scroll suave são desligados.
 
@@ -69,8 +70,23 @@ As artes vêm dos prints dos stories "Disponíveis" do Instagram. O pipeline em 
 
 Pra processar só algumas: `node tools/flash/process.cjs gueixa medusa && node tools/flash/gen-data.cjs`.
 
+## Fotos do Drive
+
+As fotos vêm da pasta pública do Google Drive do Marchello ("Marchello Trabalhos"). Pra atualizar:
+
+```bash
+npm run drive
+```
+
+1. `tools/drive/sync.mjs` lista as pastas (sem login), baixa só o que é novo pra `assets-src/drive/` (fora do git) e ignora arquivos repetidos. Vídeos só com `node tools/drive/sync.mjs --videos`.
+2. `tools/drive/process.mjs` gera `public/trabalhos/` e `public/fotos/` em WebP (grande e miniatura, sem EXIF nem GPS) e regenera `src/data/works.ts`.
+3. Títulos, tags, ordem e o que fica de fora estão em `tools/drive/curation.mjs`, pelo ID do arquivo no Drive. Foto nova sem curadoria entra com título genérico e o script avisa no final.
+
+Os PNG da pasta **Disponiveis** alimentam o flash: em `tools/flash/pieces.cjs`, uma peça com `file: 'disponiveis/<id>.png'` usa o original do Drive no lugar do print do story. Depois de `npm run drive`, rode `npm run flash`.
+
 ## Próximos passos
 
 - Confirmar com o Marchello: quais artes ainda estão disponíveis (os stories são de 2024 e 2025), tamanhos e se os preços podem aparecer no site.
 - Pedir as artes originais (sem marca d'água) da gueixa, valquíria e encapuzada, que têm a marca @marchello.ink sobre o desenho.
+- Usar os vídeos do Drive (criação no iPad e tatuagens prontas) como loops curtos. Precisa do ffmpeg.
 - Meta tags de compartilhamento (Open Graph) e deploy.

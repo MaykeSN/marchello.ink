@@ -1,12 +1,15 @@
 // Curadoria: nota (0–10) de cada peça pra vitrine, e o porquê.
 // >= 8.5 vira destaque (galeria principal). Minis vão pro filtro "Minis".
 module.exports = {
+  'dragao-oni': [9.5, 'Novo no Drive: dragão com máscara oni e vermelho, em PNG original. Uma das peças mais fortes.'],
+  gorgona: [9, 'Novo no Drive: medusa de frente com serpentes, contraste alto e arquivo original limpo.'],
+  'dragao-oriental': [8, 'Novo no Drive: dragão oriental desenhado sobre a perna. Projeto grande, traço fino.'],
   gueixa: [10, 'A peça mais marcante: neotradicional com o vermelho como único ponto de cor. A marca @marchello.ink passa sobre a testa.'],
-  medusa: [10, 'Desenho de 2025, traço mais maduro, contraste perfeito e composição fechada.'],
+  medusa: [10, 'Desenho de 2025, traço maduro e contraste perfeito. Agora em PNG original, com a marca d’água da lateral removida.'],
   'sacerdotisa-carneiro': [10, 'Neotradicional com laranja e muitos detalhes ornamentais. É a mesma arte da seção do decalque.'],
   'rei-caveira': [9.5, 'Projeto de antebraço de 2025, muito forte. Veio de mockup em braço, limpo pra fundo de papel.'],
-  pirata: [9.5, 'Projeto de braço de 2025, com personagem e narrativa. Veio de mockup em braço.'],
-  melancolia: [9.5, 'Realismo de anjo com violoncelo, nível de projeto grande (fechamento de braço).'],
+  pirata: [9.5, 'Projeto de braço de 2025, com personagem e narrativa. Agora em PNG original, em alta resolução.'],
+  melancolia: [9.5, 'Anjo com violoncelo, projeto grande. Versão PNG do Drive, só no traço: luz e sombra são feitas na pele.'],
   'deusa-da-lua': [9, 'Neotradicional clássico, simétrico, com pedido de mínimo 15 cm.'],
   'mascara-mariposas': [9, 'A melhor da cartela 6: rosto, máscara e mariposas bem integrados.'],
   valquiria: [8.5, 'Ótima composição. A marca @marchello.ink atravessa o rosto.'],

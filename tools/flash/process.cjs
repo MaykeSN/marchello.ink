@@ -15,7 +15,9 @@ const SRC = path.join(ROOT, 'assets-src/stories')
 const PUB = path.join(ROOT, 'public/flash')
 const REVIEW = path.join(ROOT, 'assets-src/flash-tatuadas')
 const files = fs.readdirSync(SRC).filter((f) => f.endsWith('.jpg')).sort()
-const K = 1220 / 900
+// stories: caixas na escala de exibição (900 de largura) do print de 1220px; arquivos do Drive: em pixels
+const scaleOf = (p) => (p.file ? 1 : 1220 / 900)
+const DRIVE = path.join(ROOT, 'assets-src/drive')
 fs.mkdirSync(PUB, { recursive: true })
 fs.mkdirSync(REVIEW, { recursive: true })
 
@@ -208,23 +210,32 @@ function inpaintBg(L, mask, w, h, cell = 8) {
 async function background(L, w, h) {
   const sw = Math.round(w / 4)
   const sh = Math.round(h / 4)
-  const small = await sharp(Buffer.from(L), { raw: { width: w, height: h, channels: 1 } }).resize(sw, sh, { kernel: 'cubic' }).raw().toBuffer()
+  const small = await sharp(Buffer.from(L), { raw: { width: w, height: h, channels: 1 } }).resize(sw, sh, { kernel: 'cubic' }).toColourspace('b-w').raw().toBuffer()
   const mx = maxFilter(Float32Array.from(small), sw, sh, 24)
   const mxBuf = Buffer.from(Uint8Array.from(mx, (v) => Math.max(0, Math.min(255, v))))
-  const bg = await sharp(mxBuf, { raw: { width: sw, height: sh, channels: 1 } }).blur(7).resize(w, h, { kernel: 'cubic' }).raw().toBuffer()
+  const bg = await sharp(mxBuf, { raw: { width: sw, height: sh, channels: 1 } }).blur(7).resize(w, h, { kernel: 'cubic' }).toColourspace('b-w').raw().toBuffer()
   return bg
 }
 
 const cache = new Map()
-async function loadSource(n) {
+async function loadSource(p) {
+  const n = p.file ?? p.src
   if (cache.has(n)) return cache.get(n)
-  const { data, info } = await sharp(path.join(SRC, files[n - 1])).removeAlpha().raw().toBuffer({ resolveWithObject: true })
+  const file = p.file ? path.join(DRIVE, p.file) : path.join(SRC, files[p.src - 1])
+  const { data, info } = await sharp(file, { failOn: 'none' })
+    .rotate()
+    .flatten({ background: '#ffffff' })
+    .removeAlpha()
+    .raw()
+    .toBuffer({ resolveWithObject: true })
   const w = info.width
   const h = info.height
   const L = new Uint8Array(w * h)
   for (let i = 0; i < w * h; i++) L[i] = Math.round(0.299 * data[i * 3] + 0.587 * data[i * 3 + 1] + 0.114 * data[i * 3 + 2])
   const Lb = Uint8Array.from(L)
-  if (n <= 6) for (let y = 0; y < h; y++) for (let x = 0; x < 175; x++) Lb[y * w + x] = Math.min(Lb[y * w + x], 212)
+  // faixa da marca d'água clara à esquerda não pode inflar a estimativa do fundo
+  const clampX = p.file ? p.bgClampX ?? 0 : n <= 6 ? 175 : 0
+  for (let y = 0; y < h; y++) for (let x = 0; x < clampX; x++) Lb[y * w + x] = Math.min(Lb[y * w + x], 212)
   const bg = await background(Lb, w, h)
   const src = { data, L, bg, w, h }
   cache.set(n, src)
@@ -232,8 +243,10 @@ async function loadSource(n) {
 }
 
 async function processPiece(p) {
-  const s = await loadSource(p.src)
-  const [x0d, y0d, x1d, y1d] = p.box
+  const s = await loadSource(p)
+  const K = scaleOf(p)
+  const [x0d, y0d, x1d, y1d] = p.box ?? [0, 0, s.w / K, s.h / K]
+  const top = y0d
   const x0 = Math.max(0, Math.round(x0d * K))
   const y0 = Math.max(0, Math.round(y0d * K))
   const x1 = Math.min(s.w, Math.round(x1d * K))
@@ -284,14 +297,14 @@ async function processPiece(p) {
   if (p.inkMode === 'local' || p.inkMode === 'dark' || p.wmZone || !p.single) {
     const Lo = Buffer.alloc(w * h)
     for (let i = 0; i < w * h; i++) Lo[i] = 0.299 * orig[i * 3] + 0.587 * orig[i * 3 + 1] + 0.114 * orig[i * 3 + 2]
-    const mean = await sharp(Lo, { raw: { width: w, height: h, channels: 1 } }).blur(14).raw().toBuffer()
+    const mean = await sharp(Lo, { raw: { width: w, height: h, channels: 1 } }).blur(14).toColourspace('b-w').raw().toBuffer()
     local = { Lo, mean }
   }
   for (let i = 0; i < w * h; i++) {
     if (redD[i]) rgb[i * 3] = rgb[i * 3 + 1] = rgb[i * 3 + 2] = 255
     const gx = (i % w) + x0
     const gy = ((i / w) | 0) + y0
-    if (p.wmZone && (gx < p.wmZone * K || gy < (p.box[1] + 90) * K)) {
+    if (p.wmZone && (gx < p.wmZone * K || gy < (top + (p.wmTop ?? 90)) * K)) {
       // faixa da marca d'água e fumaça do topo: só traço escuro COM textura conta como arte
       ink[i] = !exMask[i] && ((local.Lo[i] < 110 && local.Lo[i] < local.mean[i] - 12) || local.Lo[i] < 55) ? 1 : 0
     } else if (p.inkMode === 'dark') {
@@ -335,7 +348,8 @@ async function processPiece(p) {
   const wp2 = p.wp2 ?? 0.95
   const bp2 = 0.03
   for (let i = 0; i < w * h; i++) {
-    const bgv = Math.max(60, bgI[i])
+    // bgMode 'local': fundo que acompanha o mockup (ex.: perna cinza), em vez do interpolado de fora da silhueta
+    const bgv = p.bgMode === 'local' ? Math.max(60, s.bg[(((i / w) | 0) + y0) * s.w + (i % w) + x0]) : Math.max(60, bgI[i])
     for (let k = 0; k < 3; k++) {
       const n = orig[i * 3 + k] / bgv
       rgb[i * 3 + k] = Math.pow(Math.max(0, Math.min(1, (n - bp2) / (wp2 - bp2))), p.gamma ?? (p.single ? 1 : 1.3)) * 255
@@ -351,7 +365,7 @@ async function processPiece(p) {
     for (let i = 0; i < w * h; i++) {
       const gx = (i % w) + x0
       const gy = ((i / w) | 0) + y0
-      if ((gx < p.wmZone * K || gy < (p.box[1] + 90) * K) && !near[i]) rgb[i * 3] = rgb[i * 3 + 1] = rgb[i * 3 + 2] = 255
+      if ((gx < p.wmZone * K || gy < (top + (p.wmTop ?? 90)) * K) && !near[i]) rgb[i * 3] = rgb[i * 3 + 1] = rgb[i * 3 + 2] = 255
     }
   }
 

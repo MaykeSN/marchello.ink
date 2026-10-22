@@ -6,12 +6,16 @@
 // price:  valor que aparecia na cartela (referência, não vai pro site)
 module.exports = [
   // ---- avulsas (stories de uma arte só) ----
+  // ---- PNG originais da pasta Disponiveis do Drive (junho/2026) ----
+  { file: 'disponiveis/1DRROS2n_gNrDJJM2qKH0gaYQ8hL1el-h.png', slug: 'dragao-oni', name: 'Dragão e oni', style: 'Neotradicional', single: true, wp: 0.95 },
+  { file: 'disponiveis/10pTcd3lUVnoNthx1ilepprlbUKHCK0Pm.png', slug: 'gorgona', name: 'Górgona', style: 'Neotradicional', single: true, wp: 0.95 },
+  { file: 'disponiveis/1eyTr5vnWWpQZkrrvMra-FTtAdGSJk7kE.png', slug: 'dragao-oriental', name: 'Dragão oriental', style: 'Neotradicional', single: true, wp: 0.9, inkMode: 'local', localT: 14, bgMode: 'local', size: 'projeto de perna' },
   { src: 2, slug: 'gueixa', name: 'Gueixa', style: 'Neotradicional', box: [132, 320, 830, 1632], single: true, wmZone: 262, wp: 0.93, ex: [[0,315,158,640],[132,315,262,350]] },
   { src: 6, slug: 'sacerdotisa-carneiro', name: 'Sacerdotisa do carneiro', style: 'Neotradicional', box: [110, 425, 800, 1500], single: true, wp: 0.93, inkMode: 'local' },
   { src: 13, slug: 'rei-caveira', name: 'Rei caveira', style: 'Neotradicional', box: [108, 176, 800, 1625], single: true, wp: 0.92, inkMode: 'dark', ex: [[0, 1420, 382, 1532], [108, 205, 740, 250], [108, 250, 362, 300]] },
-  { src: 14, slug: 'pirata', name: 'Pirata', style: 'Neotradicional', box: [195, 176, 850, 1765], single: true, wp: 0.92, inkMode: 'dark', ex: [[0, 1385, 382, 1495], [130, 205, 740, 262], [130, 262, 362, 300]] },
-  { src: 15, slug: 'medusa', name: 'Medusa', style: 'Neotradicional', box: [60, 172, 900, 1548], single: true, wp: 0.92, ex: [[0, 200, 125, 300], [0, 1398, 386, 1522]] },
-  { src: 16, slug: 'melancolia', name: 'Melancolia', style: 'Realismo', box: [50, 296, 880, 1668], single: true, wp: 0.92, ex: [[0, 220, 900, 296], [0, 1478, 292, 1632], [345, 1512, 405, 1552], [0, 1665, 900, 1720]] },
+  { file: 'disponiveis/1bj-zpnHPwO-x7A42OXo2Xrr15fAm1o_M.png', slug: 'pirata', name: 'Pirata', style: 'Neotradicional', box: [360, 0, 1620, 2880], single: true, wp: 0.95, bgClampX: 360 },
+  { file: 'disponiveis/1QYunIf1QGt_xoRFsP8QRTER9drsA_8-I.png', slug: 'medusa', name: 'Medusa', style: 'Neotradicional', single: true, wp: 0.95, bgClampX: 430, wmZone: 430, wmTop: 0, wmDark: 70 },
+  { file: 'disponiveis/1yxAERTYvscVbAdgSRfbI3wmdPfaAIG47.png', slug: 'melancolia', name: 'Melancolia', style: 'Realismo', single: true, wp: 0.95 },
   { src: 3, slug: 'valquiria', name: 'Valquíria', style: 'Neotradicional', box: [140, 320, 890, 1600], single: true, wmZone: 262, wp: 0.93, inkMode: 'local', localT: 18, ex: [[0,315,285,780]] },
   { src: 4, slug: 'deusa-da-lua', name: 'Deusa da lua', style: 'Neotradicional', box: [190, 340, 900, 1505], single: true, wmZone: 262, wp: 0.93, inkMode: 'local', localT: 18, size: 'mín. 15 cm', ex: [[0,330,262,540]] },
   { src: 5, slug: 'encapuzada', name: 'Encapuzada', style: 'Neotradicional', box: [190, 290, 870, 1600], single: true, wmZone: 262, wp: 0.93, inkMode: 'local', localT: 14, ex: [[0,285,256,880],[190,285,262,700]] },

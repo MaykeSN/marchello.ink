@@ -1,4 +1,5 @@
 import { useRef } from 'react'
+import { photoImg, photos } from '../data/works'
 import { gsap, SplitText, useGSAP } from '../lib/gsap'
 import { InkStop } from './Ornaments'
 
@@ -26,6 +27,13 @@ export function Manifesto() {
           ),
       })
 
+      // polaroid presa com fita, girando de leve com o scroll
+      gsap.fromTo(
+        '.polaroid',
+        { y: 80, rotate: 9 },
+        { y: -60, rotate: 3, ease: 'none', scrollTrigger: { trigger: root.current, start: 'top bottom', end: 'bottom top', scrub: true } },
+      )
+
       gsap.from('.manifesto-sign', {
         clipPath: 'inset(0 100% 0 0)',
         duration: 1.4,
@@ -45,6 +53,10 @@ export function Manifesto() {
         à mão, pensados pra envelhecer bonito na <em>pele</em> — e pra nunca existirem duas vezes.
       </p>
       <p className="manifesto-sign">Marchello</p>
+      <figure className="polaroid" aria-hidden="true">
+        <img src={photoImg('olhar', true)} width={photos.olhar.w} height={photos.olhar.h} alt="" loading="lazy" decoding="async" />
+        <figcaption>concentração · Extrema/MG</figcaption>
+      </figure>
     </section>
   )
 }

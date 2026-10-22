@@ -1,13 +1,13 @@
 {
  "gueixa": {
-  "w": 735,
+  "w": 738,
   "h": 1300,
   "srcLong": 1968
  },
  "sacerdotisa-carneiro": {
-  "w": 850,
+  "w": 857,
   "h": 1300,
-  "srcLong": 1615
+  "srcLong": 1598
  },
  "rei-caveira": {
   "w": 704,
@@ -15,32 +15,32 @@
   "srcLong": 2039
  },
  "pirata": {
-  "w": 621,
+  "w": 556,
   "h": 1300,
-  "srcLong": 2249
+  "srcLong": 3180
  },
  "medusa": {
-  "w": 838,
+  "w": 847,
   "h": 1300,
-  "srcLong": 2053
+  "srcLong": 2886
  },
  "melancolia": {
-  "w": 813,
+  "w": 792,
   "h": 1300,
-  "srcLong": 2054
+  "srcLong": 3485
  },
  "valquiria": {
-  "w": 717,
+  "w": 745,
   "h": 1300,
-  "srcLong": 1921
+  "srcLong": 1831
  },
  "deusa-da-lua": {
-  "w": 763,
+  "w": 800,
   "h": 1300,
-  "srcLong": 1749
+  "srcLong": 1652
  },
  "encapuzada": {
-  "w": 574,
+  "w": 573,
   "h": 1300,
   "srcLong": 1966
  },
@@ -50,7 +50,7 @@
   "srcLong": 1612
  },
  "lirio": {
-  "w": 500,
+  "w": 489,
   "h": 724,
   "srcLong": 426
  },
@@ -61,18 +61,18 @@
  },
  "sol-rosto": {
   "w": 838,
-  "h": 811,
+  "h": 818,
   "srcLong": 493
  },
  "estrela": {
-  "w": 333,
-  "h": 445,
-  "srcLong": 262
+  "w": 332,
+  "h": 444,
+  "srcLong": 261
  },
  "besouro-alado": {
-  "w": 1044,
-  "h": 733,
-  "srcLong": 614
+  "w": 1034,
+  "h": 724,
+  "srcLong": 608
  },
  "isqueiro-love": {
   "w": 493,
@@ -80,84 +80,84 @@
   "srcLong": 478
  },
  "coracao-chamas": {
-  "w": 641,
+  "w": 640,
   "h": 944,
   "srcLong": 555
  },
  "coracao-adaga": {
-  "w": 671,
-  "h": 1030,
-  "srcLong": 606
+  "w": 666,
+  "h": 1023,
+  "srcLong": 602
  },
  "lua-aranha": {
-  "w": 740,
-  "h": 811,
-  "srcLong": 477
+  "w": 736,
+  "h": 809,
+  "srcLong": 476
  },
  "morcego": {
-  "w": 607,
+  "w": 604,
   "h": 733,
   "srcLong": 431
  },
  "lua-brilho": {
-  "w": 447,
-  "h": 483,
-  "srcLong": 284
+  "w": 439,
+  "h": 476,
+  "srcLong": 280
  },
  "coracao-que-chora": {
   "w": 498,
-  "h": 554,
-  "srcLong": 326
+  "h": 556,
+  "srcLong": 327
  },
  "arame-farpado": {
   "w": 452,
-  "h": 462,
-  "srcLong": 272
+  "h": 461,
+  "srcLong": 271
  },
  "lua-estrelas": {
-  "w": 476,
-  "h": 646,
-  "srcLong": 380
+  "w": 471,
+  "h": 643,
+  "srcLong": 378
  },
  "brilho": {
-  "w": 330,
-  "h": 462,
-  "srcLong": 272
+  "w": 324,
+  "h": 457,
+  "srcLong": 269
  },
  "garca": {
   "w": 1300,
-  "h": 1028,
-  "srcLong": 894
+  "h": 1030,
+  "srcLong": 892
  },
  "corvo": {
-  "w": 1059,
-  "h": 836,
-  "srcLong": 623
+  "w": 1054,
+  "h": 838,
+  "srcLong": 620
  },
  "pardal-adaga": {
-  "w": 602,
+  "w": 603,
   "h": 1300,
-  "srcLong": 1354
+  "srcLong": 1352
  },
  "pardal-galho": {
-  "w": 861,
+  "w": 852,
   "h": 1300,
-  "srcLong": 1069
+  "srcLong": 1067
  },
  "olho-no-coracao": {
-  "w": 654,
+  "w": 646,
   "h": 1300,
   "srcLong": 895
  },
  "sol-nuvens": {
-  "w": 1098,
-  "h": 1084,
-  "srcLong": 646
+  "w": 1088,
+  "h": 1078,
+  "srcLong": 640
  },
  "portal-lua": {
-  "w": 700,
+  "w": 699,
   "h": 1300,
-  "srcLong": 840
+  "srcLong": 841
  },
  "mao-rosas": {
   "w": 847,
@@ -165,17 +165,17 @@
   "srcLong": 728
  },
  "sagrado-coracao": {
-  "w": 740,
-  "h": 893,
-  "srcLong": 525
+  "w": 738,
+  "h": 879,
+  "srcLong": 517
  },
  "adaga-lirios": {
   "w": 1300,
-  "h": 611,
-  "srcLong": 989
+  "h": 606,
+  "srcLong": 987
  },
  "mosca": {
-  "w": 796,
+  "w": 792,
   "h": 957,
   "srcLong": 563
  },
@@ -185,14 +185,14 @@
   "srcLong": 1285
  },
  "olho-cristal": {
-  "w": 728,
-  "h": 1003,
-  "srcLong": 590
+  "w": 644,
+  "h": 993,
+  "srcLong": 584
  },
  "raposa-amarrada": {
-  "w": 640,
+  "w": 639,
   "h": 1300,
-  "srcLong": 1150
+  "srcLong": 1147
  },
  "mulher-peonia": {
   "w": 726,
@@ -201,28 +201,28 @@
  },
  "kitsune-sinos": {
   "w": 923,
-  "h": 1069,
-  "srcLong": 629
+  "h": 1068,
+  "srcLong": 628
  },
  "oni": {
-  "w": 813,
-  "h": 993,
-  "srcLong": 584
+  "w": 802,
+  "h": 986,
+  "srcLong": 580
  },
  "kitsune-flor": {
-  "w": 833,
-  "h": 1029,
-  "srcLong": 605
+  "w": 824,
+  "h": 1030,
+  "srcLong": 606
  },
  "hannya": {
-  "w": 1042,
+  "w": 1034,
   "h": 1300,
-  "srcLong": 775
+  "srcLong": 776
  },
  "kitsune": {
-  "w": 789,
-  "h": 964,
-  "srcLong": 567
+  "w": 777,
+  "h": 959,
+  "srcLong": 564
  },
  "oni-borla": {
   "w": 915,
@@ -230,9 +230,9 @@
   "srcLong": 540
  },
  "passaro-costelas": {
-  "w": 629,
+  "w": 628,
   "h": 1300,
-  "srcLong": 868
+  "srcLong": 863
  },
  "besouro": {
   "w": 1158,
@@ -245,23 +245,38 @@
   "srcLong": 702
  },
  "cavalo-marinho": {
-  "w": 612,
-  "h": 993,
-  "srcLong": 584
+  "w": 609,
+  "h": 991,
+  "srcLong": 583
  },
  "mulher-lamina": {
   "w": 455,
   "h": 1300,
-  "srcLong": 1085
+  "srcLong": 1086
  },
  "rosto-em-flor": {
-  "w": 993,
+  "w": 989,
   "h": 1297,
   "srcLong": 763
  },
  "mascara-mariposas": {
-  "w": 1090,
+  "w": 1066,
   "h": 1297,
   "srcLong": 763
+ },
+ "dragao-oni": {
+  "w": 1100,
+  "h": 1300,
+  "srcLong": 3820
+ },
+ "gorgona": {
+  "w": 766,
+  "h": 1300,
+  "srcLong": 2996
+ },
+ "dragao-oriental": {
+  "w": 719,
+  "h": 1300,
+  "srcLong": 3211
  }
 }

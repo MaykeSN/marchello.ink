@@ -14,6 +14,7 @@ import { Nav } from './components/Nav'
 import { Preloader } from './components/Preloader'
 import { Splatter } from './components/Splatter'
 import { StencilTransfer } from './components/StencilTransfer'
+import { Works } from './components/Works'
 import { ScrollTrigger } from './lib/gsap'
 import { initLenis } from './lib/lenis'
 import { prefersReducedMotion } from './lib/motion'
@@ -52,6 +53,7 @@ export default function App() {
         <FlashGallery />
         <FlashCatalog />
         <StencilTransfer />
+        <Works />
         <About />
         <Contact />
       </main>

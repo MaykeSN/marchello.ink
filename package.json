@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "flash": "node tools/flash/process.cjs && node tools/flash/gen-data.cjs"
+    "flash": "node tools/flash/process.cjs && node tools/flash/gen-data.cjs",
+    "drive": "node tools/drive/sync.mjs && node tools/drive/process.mjs"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
